@@ -13,18 +13,14 @@
             margin: 0;
             background-color: #f0f0f0;
         }
-        .contador-item {
-            font-size: 48px;
-            margin: 0 5px;
+        #contador-img {
+            width: 300px; /* Ajusta el tamaño de la imagen según sea necesario */
+            height: auto;
         }
     </style>
 </head>
 <body>
-    <div id="contador">
-        <span id="horas" class="contador-item">0</span>h 
-        <span id="minutos" class="contador-item">0</span>m 
-        <span id="segundos" class="contador-item">0</span>s
-    </div>
+    <img id="contador-img" src="https://via.placeholder.com/300x150" alt="Contador Regresivo">
     <script>
         function iniciarContador(horas) {
             var cuentaAtras = new Date().getTime() + horas * 60 * 60 * 1000;
@@ -36,20 +32,18 @@
                 var minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
                 var segundos = Math.floor((distancia % (1000 * 60)) / 1000);
 
-                document.getElementById("horas").innerText = horas;
-                document.getElementById("minutos").innerText = minutos;
-                document.getElementById("segundos").innerText = segundos;
+                var imgSrc = "https://via.placeholder.com/300x150?text=" + horas + "h+" + minutos + "m+" + segundos + "s";
+                document.getElementById("contador-img").src = imgSrc;
 
                 if (distancia < 0) {
                     clearInterval(x);
-                    document.getElementById("contador").innerHTML = "<span class='contador-item'>¡Tiempo terminado!</span>";
+                    document.getElementById("contador-img").alt = "Tiempo terminado";
                 }
             }, 1000);
         }
 
         // Modifica la cantidad de horas aquí
-        iniciarContador(3);
+        iniciarContador(2);
     </script>
 </body>
 </html>
-
