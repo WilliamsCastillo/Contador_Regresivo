@@ -15,6 +15,7 @@
         }
         #contador {
             font-size: 48px;
+            letter-spacing: 1em; /* Define the space between characters */
         }
     </style>
 </head>
@@ -23,6 +24,7 @@
     <script>
         function iniciarContador(horas, espacios) {
             var cuentaAtras = new Date().getTime() + horas * 60 * 60 * 1000;
+            var espaciosStr = ' '.repeat(espacios);
 
             function actualizarContador() {
                 var ahora = new Date().getTime();
@@ -36,12 +38,11 @@
                 var minutosStr = minutos.toString().padStart(2, '0');
                 var segundosStr = segundos.toString().padStart(2, '0');
 
-                var espaciosStr = '    '.repeat(espacios);
                 document.getElementById("contador").innerText = horasStr + espaciosStr + minutosStr + espaciosStr + segundosStr;
 
                 if (distancia < 0) {
                     clearInterval(intervalo);
-                    document.getElementById("contador").innerText = "0 0" + espaciosStr + "0 0" + espaciosStr + "0 0";
+                    document.getElementById("contador").innerText = "00" + espaciosStr + "00" + espaciosStr + "00";
                 }
             }
 
@@ -50,7 +51,7 @@
         }
 
         // Modifica la cantidad de horas y espacios aquí
-        iniciarContador(3, 1); // 3 horas, 1 espacio entre números
+        iniciarContador(2, 4); // 3 horas, 1 espacio entre números
     </script>
 </body>
 </html>
