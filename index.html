@@ -13,18 +13,20 @@
             margin: 0;
             background-color: #f0f0f0;
         }
-        #contador-img {
-            width: 300px; /* Ajusta el tamaño de la imagen según sea necesario */
-            height: auto;
+        #contador-canvas {
+            border: 1px solid #000; /* Borde opcional para visualizar el canvas */
         }
     </style>
 </head>
 <body>
-    <img id="contador-img" src="https://via.placeholder.com/300x150" alt="Contador Regresivo">
+    <canvas id="contador-canvas" width="300" height="150"></canvas>
     <script>
         function iniciarContador(horas) {
             var cuentaAtras = new Date().getTime() + horas * 60 * 60 * 1000;
-            var x = setInterval(function() {
+            var canvas = document.getElementById("contador-canvas");
+            var ctx = canvas.getContext("2d");
+
+            function actualizarContador() {
                 var ahora = new Date().getTime();
                 var distancia = cuentaAtras - ahora;
 
@@ -32,18 +34,25 @@
                 var minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
                 var segundos = Math.floor((distancia % (1000 * 60)) / 1000);
 
-                var imgSrc = "https://via.placeholder.com/300x150?text=" + horas + "h+" + minutos + "m+" + segundos + "s";
-                document.getElementById("contador-img").src = imgSrc;
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.font = "48px Arial";
+                ctx.textAlign = "center";
+                ctx.textBaseline = "middle";
+                ctx.fillText(horas + "h " + minutos + "m " + segundos + "s", canvas.width / 2, canvas.height / 2);
 
                 if (distancia < 0) {
-                    clearInterval(x);
-                    document.getElementById("contador-img").alt = "Tiempo terminado";
+                    clearInterval(intervalo);
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.fillText("¡Tiempo terminado!", canvas.width / 2, canvas.height / 2);
                 }
-            }, 1000);
+            }
+
+            actualizarContador(); // Llamar a la función inmediatamente para evitar el primer segundo de espera
+            var intervalo = setInterval(actualizarContador, 1000);
         }
 
         // Modifica la cantidad de horas aquí
-        iniciarContador(2);
+        iniciarContador(3);
     </script>
 </body>
 </html>
