@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -12,13 +13,18 @@
             margin: 0;
             background-color: #f0f0f0;
         }
-        #contador {
+        .contador-item {
             font-size: 48px;
+            margin: 0 5px;
         }
     </style>
 </head>
 <body>
-    <div id="contador"></div>
+    <div id="contador">
+        <span id="horas" class="contador-item">0</span>h 
+        <span id="minutos" class="contador-item">0</span>m 
+        <span id="segundos" class="contador-item">0</span>s
+    </div>
     <script>
         function iniciarContador(horas) {
             var cuentaAtras = new Date().getTime() + horas * 60 * 60 * 1000;
@@ -26,21 +32,24 @@
                 var ahora = new Date().getTime();
                 var distancia = cuentaAtras - ahora;
 
-                var h = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                var m = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
-                var s = Math.floor((distancia % (1000 * 60)) / 1000);
+                var horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
+                var segundos = Math.floor((distancia % (1000 * 60)) / 1000);
 
-                document.getElementById("contador").innerHTML = h + "h " + m + "m " + s + "s";
+                document.getElementById("horas").innerText = horas;
+                document.getElementById("minutos").innerText = minutos;
+                document.getElementById("segundos").innerText = segundos;
 
                 if (distancia < 0) {
                     clearInterval(x);
-                    document.getElementById("contador").innerHTML = "¡Tiempo terminado!";
+                    document.getElementById("contador").innerHTML = "<span class='contador-item'>¡Tiempo terminado!</span>";
                 }
             }, 1000);
         }
 
         // Modifica la cantidad de horas aquí
-        iniciarContador(2);
+        iniciarContador(3);
     </script>
 </body>
 </html>
+
