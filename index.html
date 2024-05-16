@@ -1,8 +1,6 @@
-<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contador Regresivo</title>
     <style>
         body {
@@ -16,10 +14,6 @@
         }
         #contador {
             font-size: 48px;
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
@@ -27,18 +21,16 @@
     <div id="contador"></div>
     <script>
         function iniciarContador(horas) {
-            const ahora = new Date().getTime();
-            const cuentaAtras = ahora + horas * 60 * 60 * 1000;
+            var cuentaAtras = new Date().getTime() + horas * 60 * 60 * 1000;
+            var x = setInterval(function() {
+                var ahora = new Date().getTime();
+                var distancia = cuentaAtras - ahora;
 
-            const x = setInterval(function() {
-                const ahora = new Date().getTime();
-                const distancia = cuentaAtras - ahora;
+                var h = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var m = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
+                var s = Math.floor((distancia % (1000 * 60)) / 1000);
 
-                const horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
-                const segundos = Math.floor((distancia % (1000 * 60)) / 1000);
-
-                document.getElementById("contador").innerHTML = `${horas}h ${minutos}m ${segundos}s`;
+                document.getElementById("contador").innerHTML = h + "h " + m + "m " + s + "s";
 
                 if (distancia < 0) {
                     clearInterval(x);
@@ -47,7 +39,7 @@
             }, 1000);
         }
 
-        // Aquí puedes modificar la cantidad de horas
+        // Modifica la cantidad de horas aquí
         iniciarContador(2);
     </script>
 </body>
