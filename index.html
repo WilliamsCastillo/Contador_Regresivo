@@ -13,18 +13,16 @@
             margin: 0;
             background-color: #f0f0f0;
         }
-        #contador-canvas {
-            border: 1px solid #000; /* Borde opcional para visualizar el canvas */
+        #contador {
+            font-size: 48px;
         }
     </style>
 </head>
 <body>
-    <canvas id="contador-canvas" width="300" height="150"></canvas>
+    <div id="contador">0h 0m 0s</div>
     <script>
         function iniciarContador(horas) {
             var cuentaAtras = new Date().getTime() + horas * 60 * 60 * 1000;
-            var canvas = document.getElementById("contador-canvas");
-            var ctx = canvas.getContext("2d");
 
             function actualizarContador() {
                 var ahora = new Date().getTime();
@@ -34,16 +32,11 @@
                 var minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
                 var segundos = Math.floor((distancia % (1000 * 60)) / 1000);
 
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.font = "48px Arial";
-                ctx.textAlign = "center";
-                ctx.textBaseline = "middle";
-                ctx.fillText(horas + "h " + minutos + "m " + segundos + "s", canvas.width / 2, canvas.height / 2);
+                document.getElementById("contador").innerText = horas + "h " + minutos + "m " + segundos + "s";
 
                 if (distancia < 0) {
                     clearInterval(intervalo);
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    ctx.fillText("¡Tiempo terminado!", canvas.width / 2, canvas.height / 2);
+                    document.getElementById("contador").innerText = "¡Tiempo terminado!";
                 }
             }
 
