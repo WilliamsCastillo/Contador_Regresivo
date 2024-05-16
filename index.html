@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -16,21 +17,26 @@
             font-size: 48px;
             display: flex;
             justify-content: space-between;
-            letter-spacing: 40px; /* Valor editable para los espacios entre números */
+            letter-spacing: 10px; /* Valor editable para los espacios entre números */
         }
         .numero {
             display: inline-block;
+        }
+        .reloj {
+            font-size: 24px;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
     <div id="contador">
         <span class="numero" id="horas">00</span>
-        <span class="numero"> </span>
+        <span class="numero">:</span>
         <span class="numero" id="minutos">00</span>
-        <span class="numero"> </span>
+        <span class="numero">:</span>
         <span class="numero" id="segundos">00</span>
     </div>
+    <div class="reloj" id="reloj">--:--:--</div>
     <script>
         function iniciarContador(horas) {
             var cuentaAtras = new Date().getTime() + horas * 60 * 60 * 1000;
@@ -61,6 +67,15 @@
 
         // Iniciar el contador con 2 horas
         iniciarContador(2);
+
+        // Actualizar el reloj cada segundo
+        setInterval(() => {
+            var fecha = new Date();
+            var horas = fecha.getHours().toString().padStart(2, '0');
+            var minutos = fecha.getMinutes().toString().padStart(2, '0');
+            var segundos = fecha.getSeconds().toString().padStart(2, '0');
+            document.getElementById("reloj").innerText = horas + ":" + minutos + ":" + segundos;
+        }, 1000);
     </script>
 </body>
 </html>
